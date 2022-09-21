@@ -1,5 +1,6 @@
 import pytest
 from app.controllers import BeverageController
+from app.test.utils.functions import shuffle_list
 
 def test_create(app, beverage: dict):
     created_beverage, error = BeverageController.create(beverage)
@@ -54,12 +55,17 @@ def test_get_all(app, beverages: list):
 
 def test_get_by_id_list(app, beverages: dict):
     created_beverages = []
+    beverage_ids = []
     for beverage in beverages:
         created_beverage, _ = BeverageController.create(beverage)
         created_beverages.append(created_beverage)
-    print(created_beverages)
-    beverages_from_database, error = BeverageController.get_by_id_list(created_beverages['_id'])
-    print(beverages_from_database)
+        beverage_ids.append(created_beverage['_id'])
+
+    beverages_from_database, error = BeverageController.get_by_id_list(beverage_ids)
+    searchable_beverages = {db_beverage.__dict__['_id']: db_beverage.__dict__ for db_beverage in  beverages_from_database}
     pytest.assume(error is None)
-    for param, value in created_beverages.items():
-        pytest.assume(beverages_from_database[param] == value)
+    for created_beverage in created_beverages:
+        current_id = created_beverage['_id']
+        assert current_id in searchable_beverages
+        for param, value in created_beverage.items():
+            pytest.assume(searchable_beverages[current_id][param] == value)
