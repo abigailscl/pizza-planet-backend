@@ -2,8 +2,8 @@ from typing import Any, List, Optional, Sequence
 
 from sqlalchemy.sql import text, column
 
-from .models import Ingredient, Order, OrderDetail, Size, db
-from .serializers import (IngredientSerializer, OrderSerializer,
+from .models import Beverage, Ingredient, Order, OrderDetail, Size, db
+from .serializers import (IngredientSerializer, BeverageSerializer, OrderSerializer,
                           SizeSerializer, ma)
 
 
@@ -37,6 +37,10 @@ class BaseManager:
         cls.session.query(cls.model).filter_by(_id=_id).update(new_values)
         cls.session.commit()
         return cls.get_by_id(_id)
+    
+    @classmethod
+    def get_by_id_list(cls, ids: Sequence):
+        return cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
 
 
 class SizeManager(BaseManager):
@@ -48,9 +52,10 @@ class IngredientManager(BaseManager):
     model = Ingredient
     serializer = IngredientSerializer
 
-    @classmethod
-    def get_by_id_list(cls, ids: Sequence):
-        return cls.session.query(cls.model).filter(cls.model._id.in_(set(ids))).all() or []
+
+class BeverageManager(BaseManager):
+    model = Beverage
+    serializer = BeverageSerializer
 
 
 class OrderManager(BaseManager):
