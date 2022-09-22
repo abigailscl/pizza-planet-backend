@@ -1,5 +1,6 @@
 import random
 import string
+from random import sample
 from typing import Any, Union
 
 
@@ -27,11 +28,17 @@ def get_random_email() -> str:
     return f"{get_random_string()}@{get_random_choice(['hotmail.com', 'gmail.com', 'test.com'])}"
 
 
-def get_random_sequence(length: int = 10) -> str:
-    digits = list(map(str, range(10)))
-    sequence = [digits[random.randint(0, 9)] for _ in range(length)]
+def get_random_sequence(length: int = 10, maximum_limit: int = 9, minimum_limit: int = 0) -> str:
+    LENGHT_DIGITS_LIST = 10
+    digits = list(map(str, range(LENGHT_DIGITS_LIST)))
+    sequence = [digits[random.randint(minimum_limit, maximum_limit)] for _ in range(length)]
     return ''.join(sequence)
 
 
 def get_random_phone() -> str:
     return get_random_sequence(10)
+
+
+def get_random_indexes_without_repeating(length: int = 9, maximum_limit: int = 10, minimum_limit: int = 1) -> list:
+    indexes = sample([ _ for _ in range(minimum_limit, maximum_limit)], length)
+    return indexes
