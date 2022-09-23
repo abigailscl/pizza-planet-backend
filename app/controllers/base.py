@@ -36,3 +36,10 @@ class BaseController:
             return cls.manager.update(_id, new_values), None
         except (SQLAlchemyError, RuntimeError) as ex:
             return None, str(ex)
+
+    @classmethod
+    def get_by_id_list(cls, _ids: Any) -> Tuple[Any, Optional[str]]:
+        try:
+            return cls.manager.get_by_id_list(_ids), None
+        except (SQLAlchemyError, RuntimeError) as ex:
+            return None, str(ex)

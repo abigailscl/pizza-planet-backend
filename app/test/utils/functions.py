@@ -1,5 +1,6 @@
 import random
 import string
+from random import sample
 from typing import Any, Union
 
 
@@ -14,7 +15,8 @@ def get_random_choice(choices: Union[tuple, list]) -> Any:
 
 
 def get_random_price(lower_bound: float, upper_bound: float) -> float:
-    return round(random.uniform(lower_bound, upper_bound), 2)
+    NUMBER_DIGITS = 2
+    return round(random.uniform(lower_bound, upper_bound), NUMBER_DIGITS)
 
 
 def shuffle_list(choices: list) -> list:
@@ -24,14 +26,26 @@ def shuffle_list(choices: list) -> list:
 
 
 def get_random_email() -> str:
-    return f"{get_random_string()}@{get_random_choice(['hotmail.com', 'gmail.com', 'test.com'])}"
+    email = (f"{get_random_string()}@"
+             f"{get_random_choice(['hotmail.com', 'gmail.com', 'test.com'])}")
+    return email
 
 
-def get_random_sequence(length: int = 10) -> str:
-    digits = list(map(str, range(10)))
-    sequence = [digits[random.randint(0, 9)] for _ in range(length)]
+def get_random_sequence(length: int = 10,
+                        upper_bound: int = 9, lower_bound: int = 0) -> str:
+    LENGHT_DIGITS_LIST = 10
+    digits = list(map(str, range(LENGHT_DIGITS_LIST)))
+    sequence = [digits[random.randint(lower_bound, upper_bound)]
+                for _ in range(length)]
     return ''.join(sequence)
 
 
 def get_random_phone() -> str:
     return get_random_sequence(10)
+
+
+def get_random_indexes_without_repeating(length: int = 9,
+                                         upper_bound: int = 10,
+                                         lower_bound: int = 1) -> list:
+    indexes = sample([_ for _ in range(lower_bound, upper_bound)], length)
+    return indexes
