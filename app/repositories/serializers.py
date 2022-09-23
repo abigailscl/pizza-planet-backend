@@ -36,7 +36,7 @@ class BeverageDetailSerializer(ma.SQLAlchemyAutoSchema):
         load_instance = True
         fields = (
             'beverage_price',
-            'beverage',
+            'beverage'
         )
 
 
@@ -49,7 +49,7 @@ class OrderDetailSerializer(ma.SQLAlchemyAutoSchema):
         load_instance = True
         fields = (
             'ingredient_price',
-            'ingredient',
+            'ingredient'
         )
 
 
