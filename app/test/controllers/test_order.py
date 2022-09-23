@@ -2,6 +2,7 @@ import pytest
 from app.controllers import (IngredientController, OrderController,
                              BeverageController, SizeController)
 from app.controllers.base import BaseController
+from app.test.utils.functions import shuffle_list, get_random_choice
 
 
 def __order(ingredients: list, beverages: list, size: dict, client_data: dict):
@@ -69,3 +70,48 @@ def test_calculate_order_price(app, ingredients, beverages, size, client_data):
                       for ingredient in created_ingredients) +
                   sum(beverage['price']
                       for beverage in created_beverages), NUMBER_DIGITS))
+
+
+def test_get_by_id(app, ingredients, beverages, size, client_data):
+    created_size, created_ingredients, created_beverages = (
+        __create_sizes_ingredients_beverages(ingredients, beverages, [size]))
+    order = __order(created_ingredients,
+                    created_beverages, created_size, client_data)
+    created_order, _ = OrderController.create(order)
+    order_from_db, error = OrderController.get_by_id(created_order['_id'])
+    size_id = order.pop('size_id', None)
+    ingredient_ids = order.pop('ingredients', [])
+    beverage_ids = order.pop('beverages', [])
+    pytest.assume(error is None)
+    for param, value in created_order.items():
+        pytest.assume(order_from_db[param] == value)
+        pytest.assume(size_id == created_order['size']['_id'])
+
+        ingredients_in_detail = set(item['ingredient']['_id']
+                                    for item in created_order['detail'])
+        beverages_in_detail = set(item['beverage']['_id']
+                                  for item in created_order['beverage_detail'])
+        pytest.assume(not ingredients_in_detail.difference(ingredient_ids))
+        pytest.assume(not beverages_in_detail.difference(beverage_ids))
+
+
+def test_get_all(app, ingredients, beverages, sizes, client_data):
+    created_sizes, created_ingredients, created_beverages = (
+        __create_sizes_ingredients_beverages(ingredients, beverages, sizes))
+    created_orders = []
+    for _ in range(5):
+        order = __order(shuffle_list(created_ingredients)[:3],
+                        shuffle_list(created_ingredients)[:2],
+                        get_random_choice(created_sizes), client_data)
+        created_order, _ = OrderController.create(order)
+        created_orders.append(created_order)
+
+    orders_from_db, error = OrderController.get_all()
+    searchable_orders = {db_order['_id']: db_order
+                         for db_order in orders_from_db}
+    pytest.assume(error is None)
+    for created_order in created_orders:
+        current_id = created_order['_id']
+        assert current_id in searchable_orders
+        for param, value in created_order.items():
+            pytest.assume(searchable_orders[current_id][param] == value)
