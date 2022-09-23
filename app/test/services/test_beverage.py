@@ -12,9 +12,12 @@ def test_create_ingredient_service(create_beverage):
 
 
 def test_update_beverage_service(client, create_beverage, beverage_uri):
+    UPPER_BOUND_PRICE = 5
+    LOWER_BOUND_PRICE = 1
     current_beverage = create_beverage.json
     update_data = {**current_beverage, 'name': get_random_string(),
-                   'price': get_random_price(1, 5)}
+                   'price': get_random_price(LOWER_BOUND_PRICE,
+                                             UPPER_BOUND_PRICE)}
     response = client.put(beverage_uri, json=update_data)
     pytest.assume(response.status.startswith('200'))
     updated_beverage = response.json

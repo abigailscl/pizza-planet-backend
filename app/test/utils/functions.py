@@ -15,7 +15,8 @@ def get_random_choice(choices: Union[tuple, list]) -> Any:
 
 
 def get_random_price(lower_bound: float, upper_bound: float) -> float:
-    return round(random.uniform(lower_bound, upper_bound), 2)
+    NUMBER_DIGITS = 2
+    return round(random.uniform(lower_bound, upper_bound), NUMBER_DIGITS)
 
 
 def shuffle_list(choices: list) -> list:
@@ -31,10 +32,10 @@ def get_random_email() -> str:
 
 
 def get_random_sequence(length: int = 10,
-                        maximum_limit: int = 9, minimum_limit: int = 0) -> str:
+                        upper_bound: int = 9, lower_bound: int = 0) -> str:
     LENGHT_DIGITS_LIST = 10
     digits = list(map(str, range(LENGHT_DIGITS_LIST)))
-    sequence = [digits[random.randint(minimum_limit, maximum_limit)]
+    sequence = [digits[random.randint(lower_bound, upper_bound)]
                 for _ in range(length)]
     return ''.join(sequence)
 
@@ -44,7 +45,7 @@ def get_random_phone() -> str:
 
 
 def get_random_indexes_without_repeating(length: int = 9,
-                                         maximum_limit: int = 10,
-                                         minimum_limit: int = 1) -> list:
-    indexes = sample([_ for _ in range(minimum_limit, maximum_limit)], length)
+                                         upper_bound: int = 10,
+                                         lower_bound: int = 1) -> list:
+    indexes = sample([_ for _ in range(lower_bound, upper_bound)], length)
     return indexes
