@@ -57,3 +57,7 @@ def get_random_beverages(upper_bound) -> list:
                           'price': get_random_price(
                             MINIMUM_PRICE, MAXIMUM_PRICE)})
     return beverages
+
+
+def get_random_ingredients(upper_bound) -> list:
+    pass 
