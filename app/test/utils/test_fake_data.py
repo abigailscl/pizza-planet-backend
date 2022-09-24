@@ -1,6 +1,5 @@
 import pytest
-from faker import Faker
 
-def test_get_random_names() -> str:
+def test_get_random_names():
     names = get_random_names()
     assert(len(names) == 100)
