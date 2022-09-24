@@ -39,3 +39,7 @@ def get_random_sizes(upper_bound) -> list:
     for _ in range(upper_bound):
         sizes.append({'name': fake.word(), 'price': get_random_price(1,5)})
     return sizes
+
+
+def get_random_beverages(upper_bound) -> list:
+    pass
