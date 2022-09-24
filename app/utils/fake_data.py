@@ -60,4 +60,13 @@ def get_random_beverages(upper_bound) -> list:
 
 
 def get_random_ingredients(upper_bound) -> list:
-    pass 
+    ingredients = []
+    MINIMUM_PRICE = 1
+    MAXIMUM_PRICE = 5
+
+    fake = Faker()
+    for _ in range(upper_bound):
+        ingredients.append({'name': fake.word(),
+                            'price': get_random_price(
+                                MINIMUM_PRICE, MAXIMUM_PRICE)})
+    return ingredients
