@@ -1,5 +1,5 @@
 import pytest
-from app.utils.fake_data import get_random_names
+from app.utils.fake_data import (get_random_names, get_random_list_dni)
 
 
 def test_get_random_names():
