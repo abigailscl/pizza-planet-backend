@@ -1,28 +1,21 @@
 import pytest
 
-from app.test.utils.functions import get_random_string, get_random_price
+from app.controllers import order
 
 
 def test_create_order_service(create_order):
     order = create_order.json
-    pytest.assume(create_order.status.startswith('200'))
+    pytest.assume(order.status.startswith('200'))
     pytest.assume(order['_id'])
-    pytest.assume(order['name'])
-    pytest.assume(order['price'])
-
-
-def test_update_order_service(client, create_order, order_uri):
-    UPPER_BOUND_PRICE = 5
-    LOWER_BOUND_PRICE = 1
-    current_order = create_order.json
-    update_data = {**current_order, 'name': get_random_string(),
-                   'price': get_random_price(LOWER_BOUND_PRICE,
-                                             UPPER_BOUND_PRICE)}
-    response = client.put(order_uri, json=update_data)
-    pytest.assume(response.status.startswith('200'))
-    updated_order = response.json
-    for param, value in update_data.items():
-        pytest.assume(updated_order[param] == value)
+    pytest.assume(order['client_address'])
+    pytest.assume(order['client_dni'])
+    pytest.assume(order['client_name'])
+    pytest.assume(order['client_phone'])
+    pytest.assume(order['date'])
+    pytest.assume(order['size'])
+    pytest.assume(order['detail'])
+    pytest.assume(order['beverage_detail'])
+    pytest.assume(order['total_price'])
 
 
 def test_get_order_by_id_service(client, create_order, order_uri):
