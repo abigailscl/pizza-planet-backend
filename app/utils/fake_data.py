@@ -1,6 +1,7 @@
 from faker import Faker
 from app.test.utils.functions import get_random_price
 
+
 def get_random_names(language_name, upper_bound) -> list:
     name = []
     fake = Faker(language_name)
@@ -35,11 +36,24 @@ def get_random_phones(upper_bound) -> list:
 
 def get_random_sizes(upper_bound) -> list:
     sizes = []
+    MINIMUM_PRICE = 1
+    MAXIMUM_PRICE = 5
+
     fake = Faker()
     for _ in range(upper_bound):
-        sizes.append({'name': fake.word(), 'price': get_random_price(1,5)})
+        sizes.append({'name': fake.word(),
+                      'price': get_random_price(MINIMUM_PRICE, MAXIMUM_PRICE)})
     return sizes
 
 
 def get_random_beverages(upper_bound) -> list:
-    pass
+    beverages = []
+    MINIMUM_PRICE = 1
+    MAXIMUM_PRICE = 5
+
+    fake = Faker()
+    for _ in range(upper_bound):
+        beverages.append({'name': fake.word(),
+                          'price': get_random_price(
+                            MINIMUM_PRICE, MAXIMUM_PRICE)})
+    return beverages

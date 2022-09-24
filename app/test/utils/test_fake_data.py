@@ -46,4 +46,4 @@ def test_get_random_beverages():
     for beverage in beverages:
         for param, value in beverage.items():
             pytest.assume(param in attributes)
-    assert(len(beverage) is NUMBER_SIZES)
+    assert(len(beverages) is NUMBER_SIZES)
