@@ -35,3 +35,4 @@ Werkzeug==2.0.2
 zipp==3.7.0
 coverage==6.4.4
 coverage-badge==1.1.0
+pytest-cov==3.0.0
