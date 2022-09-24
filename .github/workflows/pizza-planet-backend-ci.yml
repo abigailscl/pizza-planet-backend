@@ -33,7 +33,7 @@ jobs:
 
     - name: Test with pytest
       run: |
-        source .env.test  && python3 -m pytest -v
+        python3 -m pytest -v
 
     - name: Coverage Report
       run: |
