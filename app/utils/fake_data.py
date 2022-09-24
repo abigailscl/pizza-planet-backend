@@ -18,4 +18,8 @@ def get_random_list_dni(upper_bound) -> list:
 
 
 def get_random_addresses(upper_bound) -> list:
-    pass
+    addresses = []
+    fake = Faker()
+    for _ in range(upper_bound):
+        addresses.append(fake.address())
+    return addresses
