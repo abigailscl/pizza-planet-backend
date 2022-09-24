@@ -1,5 +1,6 @@
 import pytest
-from app.utils.fake_data import (get_random_names, get_random_list_dni)
+from app.utils.fake_data import (get_random_names, get_random_list_dni,
+                                 get_random_addresses)
 
 
 def test_get_random_names():
@@ -13,3 +14,10 @@ def test_get_random_list_dni():
     NUMBER_DNI = 100
     list_dni = get_random_list_dni(NUMBER_DNI)
     assert(len(list_dni) is NUMBER_DNI)
+
+
+def test_get_random_addresses():
+    NUMBER_ADDRESSES = 100
+    addresses = get_random_addresses(NUMBER_ADDRESSES)
+    print(addresses)
+    assert(len(addresses) is NUMBER_ADDRESSES)

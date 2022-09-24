@@ -15,3 +15,7 @@ def get_random_list_dni(upper_bound) -> list:
     for _ in range(upper_bound):
         list_dni.append(fake.ssn())
     return list_dni
+
+
+def get_random_addresses(upper_bound) -> list:
+    pass
