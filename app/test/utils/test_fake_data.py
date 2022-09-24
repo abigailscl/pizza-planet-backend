@@ -1,7 +1,9 @@
 import pytest
 from app.utils.fake_data import get_random_names
 
+
 def test_get_random_names():
+    LANGUAGE_NAME = 'it_IT'
     UPPER_BOUNDER = 100
-    names = get_random_names(UPPER_BOUNDER)
-    assert(len(names) == UPPER_BOUNDER)
+    names = get_random_names(LANGUAGE_NAME, UPPER_BOUNDER)
+    pytest.assume(len(names) is UPPER_BOUNDER)
