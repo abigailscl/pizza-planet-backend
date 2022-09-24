@@ -28,11 +28,12 @@ def test_get_random_phones():
     phones = get_random_phones(NUMBER_PHONES)
     assert(len(phones) is NUMBER_PHONES)
 
+
 def test_get_random_phones():
     NUMBER_SIZES = 100
     sizes = get_random_sizes(NUMBER_SIZES)
-    attributes = ['name','price']
+    attributes = ['name', 'price']
     for size in sizes:
-        for param, value in size:
+        for param, value in size.items():
             pytest.assume(param in attributes)
     assert(len(sizes) is NUMBER_SIZES)
