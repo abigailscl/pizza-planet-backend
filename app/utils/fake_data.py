@@ -1,7 +1,7 @@
 from faker import Faker
 
 
-def get_random_names(language_name, upper_bpund) -> str:
+def get_random_names(language_name, upper_bpund) -> list:
     name = []
     fake = Faker(language_name)
     for _ in range(upper_bpund):
