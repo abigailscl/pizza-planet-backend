@@ -26,4 +26,8 @@ def get_random_addresses(upper_bound) -> list:
 
 
 def get_random_phones(upper_bound) -> list:
-    pass
+    phoness = []
+    fake = Faker()
+    for _ in range(upper_bound):
+        phoness.append(fake.phone_number())
+    return phoness
