@@ -1,6 +1,7 @@
 import pytest
 from app.utils.fake_data import (get_random_names, get_random_list_dni,
-                                 get_random_addresses, get_random_phones)
+                                 get_random_addresses, get_random_phones,
+                                 get_random_sizes)
 
 
 def test_get_random_names():
@@ -26,3 +27,8 @@ def test_get_random_phones():
     NUMBER_PHONES = 100
     phones = get_random_phones(NUMBER_PHONES)
     assert(len(phones) is NUMBER_PHONES)
+
+def test_get_random_phones():
+    NUMBER_SIZES = 100
+    sizes = get_random_sizes(NUMBER_SIZES)
+    assert(len(sizes) is NUMBER_SIZES)

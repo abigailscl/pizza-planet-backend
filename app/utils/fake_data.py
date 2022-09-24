@@ -31,3 +31,7 @@ def get_random_phones(upper_bound) -> list:
     for _ in range(upper_bound):
         phoness.append(fake.phone_number())
     return phoness
+
+
+def get_random_sizes(upper_bound) -> list:
+    pass
