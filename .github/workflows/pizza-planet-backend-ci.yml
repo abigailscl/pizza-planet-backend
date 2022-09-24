@@ -35,7 +35,7 @@ jobs:
       run: |
         source .env.test  && python3 -m pytest -v
 
-- name: Coverage Report
+    - name: Coverage Report
       run: |
         coverage run -m pytest
         coverage report -m
