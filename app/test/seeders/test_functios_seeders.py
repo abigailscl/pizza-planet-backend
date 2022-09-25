@@ -1,5 +1,5 @@
 import pytest
-from app.utils.fake_data import (get_random_names, get_random_list_dni,
+from app.test.utils.functions_seeders import (get_random_names, get_random_list_dni,
                                  get_random_addresses, get_random_phones,
                                  get_random_sizes, get_random_beverages,
                                  get_random_ingredients)
