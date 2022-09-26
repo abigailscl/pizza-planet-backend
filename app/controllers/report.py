@@ -13,3 +13,12 @@ class ReportController():
             return report.get_report().generate_report(), None
         except (SQLAlchemyError, RuntimeError) as ex:
             return None, str(ex)
+
+    
+    def generate_report_best_customers(cls):
+        try:
+            report = CustomersReportFactory()
+            return report.get_report().generate_report(), None
+        except (SQLAlchemyError, RuntimeError) as ex:
+            return None, str(ex)
+
