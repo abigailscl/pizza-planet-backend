@@ -35,7 +35,7 @@ jobs:
         python3 manage.py db init
         python3 manage.py db migrate
         python3 manage.py db upgrade
-        flask seed run
+        python manage.py seed run --root app/seeders
 
     - name: Test with pytest
       run: |
