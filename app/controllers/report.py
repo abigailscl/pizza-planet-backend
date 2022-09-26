@@ -22,3 +22,9 @@ class ReportController():
         except (SQLAlchemyError, RuntimeError) as ex:
             return None, str(ex)
 
+    def generate_report_best_seller_ingredient(cls):
+        try:
+            report = IngredientsReportFactory()
+            return report.get_report().generate_report(), None
+        except (SQLAlchemyError, RuntimeError) as ex:
+            return None, str(ex)
