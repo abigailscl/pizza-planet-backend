@@ -30,3 +30,17 @@ class CustomersReportFactory(ReportFactory):
                            self._order_detail,
                            self._session
                            )
+
+class IngredientsReport(ReportFactory):
+    def __init__(self):
+        self._order = Order
+        self._order_detail = OrderDetail
+        self._session = db.session
+        self._ingredient = Ingredient
+
+    def get_report(self) -> Report:
+        return IngredientsReport(self._order,
+                           self._order_detail,
+                           self._ingredient,
+                           self._session
+                           )

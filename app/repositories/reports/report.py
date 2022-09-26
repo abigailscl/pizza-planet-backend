@@ -62,3 +62,37 @@ class CustomerReport(Report):
         best_customers = self.get_best_customers()
 
         report = best_customers
+
+class IngredientsReport(Report):
+
+    def __init__(self, order: db.Model,
+                 order_detail: db.Model,
+                 ingredient: db.Model,
+                 session: db.session):
+        self._order = order
+        self._order_detail = order_detail
+        self._session = session
+        self._ingredient = ingredient
+
+    def orders_not_found(self, model):
+        if not model:
+            raise SQLAlchemyError("Sorry,there aren't orders")
+
+    def get_best_seller_ingredient(self):
+        _object = self._session.query(func.count(
+            self._order_detail.ingredient_id).label('count'),
+            self._order_detail.ingredient_id).group_by(self._order_detail.ingredient_id).order_by(desc('count')).first()
+
+        self.orders_not_found(_object)
+
+        ingredient = self._ingredient.query.get(_object.ingredient_id)
+        best_seller_ingredient = {
+            'name': ingredient.name,
+            'count': _object.count
+        }
+        return best_seller_ingredient
+
+    def generate_report(self):
+        best_ingredient = self.get_best_seller_ingredient()
+
+        report = best_ingredient
