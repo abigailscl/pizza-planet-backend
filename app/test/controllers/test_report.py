@@ -20,4 +20,6 @@ def tes_get_report_best_customers():
 
 
 def test_generate_report_best_seller_ingredient():
-    pass
+    report, error = ReportController.generate_report_best_seller_ingredient()
+    pytest.assume(report['name'] is not None)
+    pytest.assume(report['count'] > 1)

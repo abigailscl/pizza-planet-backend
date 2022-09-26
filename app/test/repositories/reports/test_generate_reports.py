@@ -31,6 +31,5 @@ def test_get_best_seller_ingredient():
         db.create_all()
         report = IngredientsReport(Order, OrderDetail, Ingredient, db.session)
         best_ingredient = report.get_best_seller_ingredient()
-        print(best_ingredient)
         pytest.assume(best_ingredient['name'] is not None)
         pytest.assume(best_ingredient['count'] > 1)
