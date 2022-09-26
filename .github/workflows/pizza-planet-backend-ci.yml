@@ -30,6 +30,12 @@ jobs:
     # - name: Lint with flake8
     #   run: |
     #     flake8 . --show-source --statistics
+    - name: Run seeder
+      run: |
+        python3 manage.py db init
+        python3 manage.py db migrate
+        python3 manage.py db upgrade
+        python manage.py seed run --root app/seeders
 
     - name: Test with pytest
       run: |
@@ -39,7 +45,7 @@ jobs:
       run: |
         coverage run -m pytest
         coverage report -m
-
+    
     - name: Build coverage file
       run: |
         pytest --cache-clear --cov=app/test/ --cov-fail-under=80 > pytest-coverage.txt
