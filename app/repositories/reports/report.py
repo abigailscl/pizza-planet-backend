@@ -17,15 +17,17 @@ class MonthReport(Report):
                  session: db.session):
         self._order = order
         self._session = session
-
+    
+    def orders_not_found(self, model):
+        if not model:
+            raise SQLAlchemyError("don't have orders")
+    
     def get_better_month_revenue(self):
         month = self._session.query(
             func.strftime("%m", self._order.date).label('month'),
             func.sum(self._order.total_price).label('total')).group_by('month').order_by(desc('total')).first()
-
         self.orders_not_found(month)
-
-        return {'month_number': month[0], 'total': month[1]}
+        return {'month': month[0], 'sale_amount': round(month[1],2)}
 
     def generate_report(self):
         best_month = self.get_better_month_revenue()
