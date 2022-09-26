@@ -18,7 +18,7 @@ def test_generate_report_best_customers():
     NUMBER_BEST_CUSTOMERS = 3
     with flask_app.app_context():
         db.create_all()
-        report = CustomerReport(OrderDetail, db.session)
+        report = CustomerReport(Order, OrderDetail, db.session)
         curtomer = report.get_best_customers()
         pytest.assume(curtomer is not None)
         pytest.assume(len(curtomer) is NUMBER_BEST_CUSTOMERS)
