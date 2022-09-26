@@ -1,10 +1,9 @@
 from sqlalchemy.exc import SQLAlchemyError
 
-from typing import Any, Optional, Tuple
-
 from ..repositories.managers import BaseManager
 from app.repositories.reports.report import *
 from app.repositories.models import Ingredient, Order, OrderDetail, db
+
 
 class ReportController():
 
