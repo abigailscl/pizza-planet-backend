@@ -1,0 +1,48 @@
+name: pizza-planet-backend-ci
+
+on:
+  push:
+    branches:
+    - "**"
+
+  pull_request:
+    branches:
+    - "**"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 5
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    - name: Set up Python 3.8.x 
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    # - name: Lint with flake8
+    #   run: |
+    #     flake8 . --show-source --statistics
+
+    - name: Test with pytest
+      run: |
+        python3 -m pytest -v
+
+    - name: Coverage Report
+      run: |
+        coverage run -m pytest
+        coverage report -m
+
+    - name: Build coverage file
+      run: |
+        pytest --cache-clear --cov=app/test/ --cov-fail-under=80 > pytest-coverage.txt
+
+    - name: Comment coverage
+      uses: coroo/pytest-coverage-commentator@v1.0.2
