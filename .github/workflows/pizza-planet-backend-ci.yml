@@ -30,7 +30,7 @@ jobs:
     # - name: Lint with flake8
     #   run: |
     #     flake8 . --show-source --statistics
-- name: Run seeder
+    - name: Run seeder
       run: |
         python3 manage.py db init
         python3 manage.py db migrate
