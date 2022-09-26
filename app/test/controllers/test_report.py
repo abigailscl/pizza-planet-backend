@@ -12,7 +12,11 @@ def tes_get_report_better_month_revenue():
 
 
 def tes_get_report_best_customers():
-    pass
+    NUMBER_BEST_CUSTOMERS = 3
+    report, error = ReportController.generate_report_best_customers()
+    pytest.assume(error is None)
+    pytest.assume(report is not None)
+    pytest.assume(len(report) is NUMBER_BEST_CUSTOMERS)
 
 
 def test_generate_report_best_seller_ingredient():
