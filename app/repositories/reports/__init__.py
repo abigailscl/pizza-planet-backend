@@ -1,1 +1,3 @@
-from .report_factory import MonthReportFactory, CustomersReportFactory, IngredientsReport
+from .report_factory import (MonthReportFactory,
+                             CustomersReportFactory,
+                             IngredientsReport)

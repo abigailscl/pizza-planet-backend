@@ -1,8 +1,10 @@
 import pytest
 from app import flask_app
 
-from app.repositories.reports.report import MonthReport, CustomerReport, IngredientsReport
+from app.repositories.reports.report import (MonthReport,
+                                             CustomerReport, IngredientsReport)
 from app.repositories.models import Ingredient, Order, OrderDetail, db
+
 
 def test_get_better_month_revenue():
     with flask_app.app_context():

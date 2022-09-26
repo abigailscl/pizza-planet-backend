@@ -1,13 +1,14 @@
 from abc import ABC, abstractmethod
 
 from app.repositories.models import Ingredient, Order, OrderDetail, db
-from .report import  Report, MonthReport, CustomerReport
+from .report import Report, MonthReport, CustomerReport
 
 
 class ReportFactory(ABC):
     @abstractmethod
     def get_report(self) -> Report:
         pass
+
 
 class MonthReportFactory(ReportFactory):
     def __init__(self):
@@ -19,6 +20,7 @@ class MonthReportFactory(ReportFactory):
                            self._session
                            )
 
+
 class CustomersReportFactory(ReportFactory):
     def __init__(self):
         self._order = Order
@@ -27,9 +29,9 @@ class CustomersReportFactory(ReportFactory):
 
     def get_report(self) -> Report:
         return CustomerReport(self._order,
-                           self._order_detail,
-                           self._session
-                           )
+                              self._order_detail,
+                              self._session)
+
 
 class IngredientsReport(ReportFactory):
     def __init__(self):
@@ -40,7 +42,6 @@ class IngredientsReport(ReportFactory):
 
     def get_report(self) -> Report:
         return IngredientsReport(self._order,
-                           self._order_detail,
-                           self._ingredient,
-                           self._session
-                           )
+                                 self._order_detail,
+                                 self._ingredient,
+                                 self._session)
