@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from app.repositories.models import Ingredient, Order, OrderDetail, db
-from .report import Report, MonthReport, CustomerReport
+from .report import Report, MonthReport, CustomerReport, IngredientsReport
 
 
 class ReportFactory(ABC):
@@ -33,7 +33,7 @@ class CustomersReportFactory(ReportFactory):
                               self._session)
 
 
-class IngredientsReport(ReportFactory):
+class IngredientsReportFactory(ReportFactory):
     def __init__(self):
         self._order = Order
         self._order_detail = OrderDetail
