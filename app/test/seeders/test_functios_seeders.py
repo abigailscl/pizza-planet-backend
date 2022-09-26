@@ -1,33 +1,32 @@
 import pytest
-from app.test.utils.functions_seeders import (get_random_names, get_random_list_dni,
-                                 get_random_addresses, get_random_phones,
-                                 get_random_sizes, get_random_beverages,
-                                 get_random_ingredients)
+from app.test.utils.functions_seeders import (
+    get_random_names, get_random_list_dni,
+    get_random_addresses, get_random_phones,
+    get_random_sizes, get_random_beverages,
+    get_random_ingredients)
+
+NUMBER_ORDERS = 100
 
 
 def test_get_random_names():
     LANGUAGE_NAME = 'it_IT'
-    NUMBER_NAMES = 100
-    names = get_random_names(LANGUAGE_NAME, NUMBER_NAMES)
-    assert(len(names) is NUMBER_NAMES)
+    names = get_random_names(LANGUAGE_NAME, NUMBER_ORDERS)
+    assert(len(names) is NUMBER_ORDERS)
 
 
 def test_get_random_list_dni():
-    NUMBER_DNI = 100
-    list_dni = get_random_list_dni(NUMBER_DNI)
-    assert(len(list_dni) is NUMBER_DNI)
+    list_dni = get_random_list_dni(NUMBER_ORDERS)
+    assert(len(list_dni) is NUMBER_ORDERS)
 
 
 def test_get_random_addresses():
-    NUMBER_ADDRESSES = 100
-    addresses = get_random_addresses(NUMBER_ADDRESSES)
-    assert(len(addresses) is NUMBER_ADDRESSES)
+    addresses = get_random_addresses(NUMBER_ORDERS)
+    assert(len(addresses) is NUMBER_ORDERS)
 
 
 def test_get_random_phones():
-    NUMBER_PHONES = 100
-    phones = get_random_phones(NUMBER_PHONES)
-    assert(len(phones) is NUMBER_PHONES)
+    phones = get_random_phones(NUMBER_ORDERS)
+    assert(len(phones) is NUMBER_ORDERS)
 
 
 def test_get_random_sizes():
@@ -41,7 +40,7 @@ def test_get_random_sizes():
 
 
 def test_get_random_beverages():
-    NUMBER_BEVERAGES = 10
+    NUMBER_BEVERAGES = 5
     beverages = get_random_beverages(NUMBER_BEVERAGES)
     attributes = ['name', 'price']
     for beverage in beverages:
@@ -51,7 +50,7 @@ def test_get_random_beverages():
 
 
 def test_get_random_ingredients():
-    NUMBER_INGREDIENTS = 10
+    NUMBER_INGREDIENTS = 13
     ingredients = get_random_ingredients(NUMBER_INGREDIENTS)
     attributes = ['name', 'price']
     for ingredient in ingredients:
