@@ -1,1 +1,2 @@
 from .report_factory import MonthReportFactory
+from .report_factory import CustomersReportFactory
