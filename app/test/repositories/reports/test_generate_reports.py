@@ -1,7 +1,7 @@
 import pytest
 from app import flask_app
 
-from app.repositories.reports.report import MonthReport, CustomerReport
+from app.repositories.reports.report import MonthReport, CustomerReport, IngredientsReport
 from app.repositories.models import Ingredient, Order, OrderDetail, db
 
 def test_get_better_month_revenue():
@@ -25,4 +25,10 @@ def test_get_best_customers():
 
 
 def test_get_best_seller_ingredient():
-    pass
+    with flask_app.app_context():
+        db.create_all()
+        report = IngredientsReport(Order, OrderDetail, Ingredient, db.session)
+        best_ingredient = report.get_best_seller_ingredient()
+        print(best_ingredient)
+        pytest.assume(best_ingredient['name'] is not None)
+        pytest.assume(best_ingredient['count'] > 1)
