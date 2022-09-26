@@ -1,17 +1,21 @@
 import pytest
+from app import flask_app
 
 from app.controllers.report import ReportController
+from app.repositories.models import Ingredient, Order, OrderDetail, db
 
 
-def tes_get_report_better_month_revenue():
+def test_get_report_better_month_revenue():
     report, error = ReportController.generate_report_better_month_revenue()
-    pytest.assume(error is None)
-    pytest.assume(report['customers'] is not None)
-    pytest.assume(report['ingredient'] is not None)
-    pytest.assume(report['month'] is not None)
+    with flask_app.app_context():
+        db.create_all()
+        pytest.assume(error is None)
+        pytest.assume(report['customers'] is not None)
+        pytest.assume(report['ingredient'] is not None)
+        pytest.assume(report['month'] is not None)
 
 
-def tes_get_report_best_customers():
+def test_get_report_best_customers():
     NUMBER_BEST_CUSTOMERS = 3
     report, error = ReportController.generate_report_best_customers()
     pytest.assume(error is None)
